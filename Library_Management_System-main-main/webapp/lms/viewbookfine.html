@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine Section</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        #bs-example-navbar-collapse-1 { 
+            background: linear-gradient(to top left, #006663, #111111); 
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .bg {
+            background-image: url("https://images.unsplash.com/photo-1532012197267-da84d127e765?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxpYnJhcnl8ZW58MHx8MHx8fDA%3D");
+            min-height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 20px;
+            color: white;
+        }
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        h2 {
+            color: #ffcc00;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .section-header {
+            color: #ff9900;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            color: white;
+            text-align: center;
+        }
+        th {
+            background-color: rgba(0, 102, 99, 0.8);
+        }
+        .fine-amount {
+            color: #ff4444;
+            font-weight: bold;
+        }
+        .no-fine {
+            color: #00ff00;
+        }
+        .warning {
+            color: #ffcc00;
+        }
+        .delete-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .delete-btn:hover {
+            background-color: #ff0000;
+            box-shadow: 0 0 10px #ff0000;
+        }
+        .delete-btn.clicked {
+            animation: glowing 0.5s ease-in-out;
+        }
+        @keyframes glowing {
+            0% { box-shadow: 0 0 5px #ff0000; }
+            50% { box-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; }
+            100% { box-shadow: 0 0 5px #ff0000; }
+        }
+        .paid-status {
+            color: #00ff00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="librarianhome.html">Librarian Portal</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="librarianhome.html">Home</a></li>
+                    <li><a href="addbookform.html">Add Book</a></li>
+                    <li><a href="issuebookform.html">Issue Book</a></li>
+                    <li><a href="viewissuedbook.html">View Issued Book</a></li>
+                    <li><a href="returnbookform.html">Return Book</a></li>
+                    <li class="active"><a href="finesection.html">Fine Section</a></li>
+                    <li><a href="index.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="bg">
+        <div class="content">
+            <h2>Library Fine Management System</h2>
+            
+            <!-- Overdue Books Section -->
+            <h3 class="section-header">Overdue Books (Fine Applicable)</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Days Overdue</th>
+                        <th>Fine Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="overdueTableBody">
+                    <!-- Overdue books will be loaded here -->
+                </tbody>
+            </table>
+
+            <!-- Currently Issued Books Section -->
+            <h3 class="section-header">Currently Issued Books (No Fine)</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Days Remaining</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="currentTableBody">
+                    <!-- Current books will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        function calculateFine(dueDate) {
+            const today = new Date();
+            const due = new Date(dueDate);
+            if (today > due) {
+                const diffTime = Math.abs(today - due);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays * 10;
+            }
+            return 0;
+        }
+
+        function getDaysRemaining(dueDate) {
+            const today = new Date();
+            const due = new Date(dueDate);
+            const diffTime = due - today;
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        function deleteRecord(bookId, studentId, button) {
+            button.classList.add('clicked');
+            if (confirm('Are you sure you want to mark this record as paid/complete?')) {
+                let issuedBooks = JSON.parse(localStorage.getItem('issuedBooks')) || [];
+                const bookIndex = issuedBooks.findIndex(
+                    book => book.bookId === bookId && book.studentId === studentId
+                );
+
+                if (bookIndex !== -1) {
+                    issuedBooks[bookIndex].returned = true;
+                    issuedBooks[bookIndex].finePaid = true;
+                    localStorage.setItem('issuedBooks', JSON.stringify(issuedBooks));
+                    const row = button.closest('tr');
+                    row.innerHTML = '<td colspan="9" class="paid-status">Record marked as paid and complete</td>';
+                    setTimeout(() => {
+                        row.remove();
+                    }, 2000);
+                }
+            }
+            setTimeout(() => {
+                button.classList.remove('clicked');
+            }, 500);
+        }
+
+        function displayBooks() {
+            const overdueTableBody = document.getElementById('overdueTableBody');
+            const currentTableBody = document.getElementById('currentTableBody');
+            overdueTableBody.innerHTML = '';
+            currentTableBody.innerHTML = '';
+
+            const issuedBooks = JSON.parse(localStorage.getItem('issuedBooks')) || [];
+            const today = new Date();
+
+            issuedBooks.forEach(book => {
+                if (!book.returned && !book.finePaid) {
+                    const dueDate = new Date(book.dueDate);
+                    const row = document.createElement('tr');
+                    
+                    if (today > dueDate) {
+                        const fine = calculateFine(book.dueDate);
+                        const daysOverdue = Math.abs(Math.ceil((today - dueDate) / (1000 * 60 * 60 * 24)));
+                        
+                        row.innerHTML = `
+                            <td>${book.bookId}</td>
+                            <td>${book.studentId}</td>
+                            <td>${book.studentName}</td>
+                            <td>${book.issueDate}</td>
+                            <td>${book.dueDate}</td>
+                            <td>${daysOverdue}</td>
+                            <td class="fine-amount">₹${fine}</td>
+                            <td class="warning">OVERDUE</td>
+                            <td>
+                                <button class="delete-btn" 
+                                    onclick="deleteRecord('${book.bookId}', '${book.studentId}', this)">
+                                    Mark Paid
+                                </button>
+                            </td>
+                        `;
+                        overdueTableBody.appendChild(row);
+                    } else {
+                        const daysRemaining = getDaysRemaining(book.dueDate);
+                        
+                        row.innerHTML = `
+                            <td>${book.bookId}</td>
+                            <td>${book.studentId}</td>
+                            <td>${book.studentName}</td>
+                            <td>${book.issueDate}</td>
+                            <td>${book.dueDate}</td>
+                            <td>${daysRemaining}</td>
+                            <td class="no-fine">Issued</td>
+                            <td>
+                                <button class="delete-btn" 
+                                    onclick="deleteRecord('${book.bookId}', '${book.studentId}', this)">
+                                    Complete
+                                </button>
+                            </td>
+                        `;
+                        currentTableBody.appendChild(row);
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', displayBooks);
+    </script>
+</body>
+</html>

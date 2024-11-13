@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Keep your existing CSS unchanged */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url('library.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .container {
+            padding: 16px;
+            background-color: rgba(219, 169, 169, 0.8);
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid white;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #859cc0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Registered Librarians and Students</h1>
+    
+    <h2>Librarians</h2>
+    <table id="librarianTable">
+        <thead>
+            <tr>
+                <th>EmpId</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    
+    <h2>Students</h2>
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Year</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+    window.onload = function() {
+        // Retrieve librarian and student data from localStorage
+        const librarians = JSON.parse(localStorage.getItem("librarians")) || [];
+        const students = JSON.parse(localStorage.getItem("students")) || [];
+
+        // Fill librarian table
+        const librarianTableBody = document.getElementById("librarianTable").getElementsByTagName("tbody")[0];
+        librarians.forEach(librarian => {
+            let row = librarianTableBody.insertRow();
+            row.insertCell(0).innerText = librarian.empid;
+            row.insertCell(1).innerText = librarian.name;
+            row.insertCell(2).innerText = librarian.email;
+            row.insertCell(3).innerText = librarian.ph;
+        });
+
+        // Fill student table
+        const studentTableBody = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+        students.forEach(student => {
+            let row = studentTableBody.insertRow();
+            row.insertCell(0).innerText = student.rno;
+            row.insertCell(1).innerText = student.name;
+            row.insertCell(2).innerText = student.branch;
+            row.insertCell(3).innerText = student.year;
+            row.insertCell(4).innerText = student.email;
+        });
+    };
+</script>
+
+</body>
+</html>

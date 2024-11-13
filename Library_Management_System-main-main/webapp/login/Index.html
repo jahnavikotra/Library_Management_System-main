@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="bootstrap.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+       
+        html, body {
+            background-image: url('library.jpg'); /* Path to your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #5c2018;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Header Styling */
+        header {
+            width: 100%;
+            font-size: 68px; /* Increased font size */
+            color: #bc4639;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding: 10px 50px;
+            text-align: center;
+        }
+
+        header h1 {
+            border-radius: 15px;
+            background-color: #d4a59a;
+            color: rgb(67, 63, 81);
+            margin: 0;
+            font-size: 3rem; /* Increased font size */
+           
+        }
+
+        .login-container {
+            display: flex;
+            flex-direction: row;
+            gap: 40px; /* Increased gap between login boxes */
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+           
+        }
+
+        .login-box {
+            background-color: #e3796e;
+            border-style: ridge;
+            padding: 30px;
+            color: white;
+            width: 100%;
+            max-width: 350px; /* Increased width of login boxes */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        h3 {
+            margin: 0;
+            color: #f0dedb;
+            text-align: center;
+            font-size: 1.8rem; /* Slightly increased font size */
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            width: 100%;
+            color: #f3e0dc;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        .form-group input {
+            padding: 10px; /* Increased padding for input fields */
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+            width: 80%;
+        }
+
+        .button-common {
+            background-color:#859cc0 ;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 80%; /* Adjusted width of buttons */
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .button-common:hover {
+            background-color: #3062b3;
+        }
+
+        a {
+            text-decoration: none;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to Library Portal</h1>
+    </header>
+
+    <!-- Login Forms Container -->
+    <div class="login-container row">
+        <!-- Librarian Login -->
+        <div class="login-box col-md-6">
+            <h3>Librarian Login</h3>
+            <form action="LibrarianLogin" method="post" class="librarian">
+                <div class="form-group">
+                    <label for="uname">Username <font color="red"> * </font></label>
+                    <input type="text" class="form-control" name="uname" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <label for="password1">Password<font color="red"> * </font></label>
+                    <input type="password" class="form-control" id="password1" name="pwd" placeholder="Password"/>
+                </div>  
+                <a href="librarianhome.html"><button type="submit" class="button-common">Login</button></a>
+                <a href="libraryreg.html"><button type="button" class="button-common">Register</button></a>
+            </form>
+        </div>
+
+        <!-- Student Login -->
+        <div class="login-box col-md-6">
+            <h3>Student Login</h3>
+            <form action="StudentLogin" method="post" class="admin">
+                <div class="form-group">
+                    <label for="uname">Username</label>
+                    <input type="text" class="form-control" name="uname" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <label for="password1">Password</label>
+                    <input type="password" class="form-control" name="pwd" id="password1" placeholder="Password"/>
+                </div>  
+                <a href="librarianhome.html"><button type="submit" class="button-common">Login</button></a>
+                <a href="studentreg.html"><button type="button" class="button-common">Register</button></a>
+            </form>
+        </div>
+    </div>
+   
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Issued Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        /* Background Styling */
+        body {
+            background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        /* Table Container Styling */
+        .table-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 50px auto;
+            max-width: 90%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header Styling */
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00796b;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        thead th {
+            background: linear-gradient(135deg, #00796b, #004d40);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            border: none;
+        }
+
+        tbody tr {
+            background-color: rgba(245, 245, 245, 0.9);
+            transition: background-color 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(200, 230, 201, 0.8);
+        }
+
+        tbody td {
+            padding: 12px;
+            text-align: center;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Row Shadow Effect */
+        tbody tr {
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .table-container {
+                padding: 15px;
+            }
+            table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <h2>Issued Books</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="issuedBooksTableBody">
+                <!-- Issued books will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to load issued books from localStorage
+        function loadIssuedBooks() {
+            const issuedBooks = JSON.parse(localStorage.getItem('issuedBooks')) || [];
+            const tableBody = document.getElementById('issuedBooksTableBody');
+            tableBody.innerHTML = '';
+
+            issuedBooks.forEach(book => {
+                // Fallback to "Issued" if the status field is undefined
+                const status = book.status || "Issued";
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${book.bookId}</td>
+                    <td>${book.studentId}</td>
+                    <td>${book.studentName}</td>
+                    <td>${book.issueDate}</td>
+                    <td>${book.dueDate}</td>
+                    <td>${status}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Load issued books when the page loads
+        window.onload = loadIssuedBooks;
+    </script>
+</body>
+</html>

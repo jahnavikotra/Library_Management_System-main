@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Issue Book Form</title>
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxpYnJhcnl8ZW58MHx8MHx8fDA%3D');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            width: 400px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #ffcc00;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffcc00;
+            color: #000000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <h1>Issue Book Form</h1>
+    <form id="issueBookForm">
+        <div class="form-group">
+            <label for="bookid">Book ID</label>
+            <input type="number" class="form-control" name="bookid" id="bookid" required>
+        </div>
+        <div class="form-group">
+            <label for="studentid">Student ID</label>
+            <input type="number" class="form-control" name="studentid" id="studentid" required>
+        </div>
+        <div class="form-group">
+            <label for="studentname">Student Name</label>
+            <input type="text" class="form-control" name="studentname" id="studentname" required>
+        </div>
+        <div class="form-group">
+            <label for="issuedate">Issue Date</label>
+            <input type="date" class="form-control" name="issuedate" id="issuedate" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Issue Book</button>
+    </form>
+
+    <script>
+        document.getElementById('issueBookForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get book details from available books
+            const bookId = document.getElementById('bookid').value;
+            const availableBooks = JSON.parse(localStorage.getItem('availableBooks')) || [];
+            const book = availableBooks.find(b => b.bookId === bookId);
+            
+            if (!book) {
+                alert('Book not found!');
+                return;
+            }
+
+            if (book.quantity <= book.issued) {
+                alert('Book is not available for issue!');
+                return;
+            }
+
+            const issueDate = new Date(document.getElementById('issuedate').value);
+            const dueDate = new Date(issueDate);
+            dueDate.setDate(dueDate.getDate() + 15); // 15 days from issue date
+
+            const issuedBook = {
+                bookId: bookId,
+                bookName: book.bookName, // Add book name
+                studentId: document.getElementById('studentid').value,
+                studentName: document.getElementById('studentname').value,
+                issueDate: issueDate.toISOString().split('T')[0],
+                dueDate: dueDate.toISOString().split('T')[0],
+                returned: false,
+                finePaid: false
+            };
+
+            // Update issued books in localStorage
+            let issuedBooks = JSON.parse(localStorage.getItem('issuedBooks')) || [];
+            issuedBooks.push(issuedBook);
+            localStorage.setItem('issuedBooks', JSON.stringify(issuedBooks));
+
+            // Update book quantity in available books
+            const bookIndex = availableBooks.findIndex(b => b.bookId === bookId);
+            if (bookIndex !== -1) {
+                availableBooks[bookIndex].issued++;
+                localStorage.setItem('availableBooks', JSON.stringify(availableBooks));
+            }
+
+
+            alert('Book issued successfully!');
+            this.reset();
+            window.location.href = 'librarianhome.html';
+        });
+    </script>
+</body>
+</html>

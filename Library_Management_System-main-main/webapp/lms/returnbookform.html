@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Return Book Form</title>
+    <style>
+        /* Similar styles as issuebookform.html */
+    </style>
+</head>
+<body>
+    <h1>Return Book Form</h1>
+    <form id="returnBookForm">
+        <div class="form-group">
+            <label for="bookid">Book ID</label>
+            <input type="number" class="form-control" name="bookid" id="bookid" required>
+        </div>
+        <div class="form-group">
+            <label for="studentid">Student ID</label>
+            <input type="number" class="form-control" name="studentid" id="studentid" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Return Book</button>
+    </form>
+
+    <script>
+        document.getElementById('returnBookForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const bookId = document.getElementById('bookid').value;
+            const studentId = document.getElementById('studentid').value;
+
+            let issuedBooks = JSON.parse(localStorage.getItem('issuedBooks')) || [];
+            const bookIndex = issuedBooks.findIndex(book => book.bookId === bookId && book.studentId === studentId);
+
+            if (bookIndex !== -1) {
+                issuedBooks[bookIndex].returned = true;
+                localStorage.setItem(' issuedBooks', JSON.stringify(issuedBooks));
+                alert('Book returned successfully!');
+                this.reset();
+                window.location.href = 'librarianhome.html'; // Redirect after return
+            } else {
+                alert('Book not found or already returned.');
+            }
+        });
+    </script>
+</body>
+</html>

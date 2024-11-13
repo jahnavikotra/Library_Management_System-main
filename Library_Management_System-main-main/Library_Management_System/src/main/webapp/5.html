@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book Form</title>
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxpYnJhcnl8ZW58MHx8MHx8fDA%3D');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333333; /* General text color */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .header-bar {
+            background-color: #007BFF; /* Blue header */
+            color: #ffffff; /* White text */
+            width: 100%; /* Full-width */
+            text-align: center;
+            padding: 15px 0; /* Top and bottom padding */
+            font-size: 24px; /* Font size */
+            border-radius: 8px 8px 0 0; /* Rounded corners */
+            margin-bottom: 20px; /* Space below header */
+        }
+
+        form {
+            background-color: rgba(240, 240, 240, 0.9); /* Light gray overlay */
+            padding: 30px;
+            border-radius: 8px;
+            width: 400px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #003366; /* Soft navy blue for labels */
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #ffffff; /* White background for inputs */
+            color: #333333; /* Dark text color for inputs */
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #003366; /* Highlight border color on focus */
+            background-color: #f0f8ff; /* Light blue background on focus */
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF; /* Muted blue button */
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-bar">Add Book Form</div>
+    <form action="AddBook" method="post">
+        <div class="form-group">
+            <label for="callno1">Book ID</label>
+            <input type="text" class="form-control" name="bookid" id="callno1" placeholder="Book Id" />
+        </div>
+        <div class="form-group">
+            <label for="name1">Book Name</label>
+            <input type="text" class="form-control" name="name" id="name1" placeholder="Book Name" />
+        </div>
+        <div class="form-group">
+            <label for="author1">Author</label>
+            <input type="text" class="form-control" name="author" id="author1" placeholder="Author" />
+        </div>
+        <div class="form-group">
+            <label for="quantity1">Quantity</label>
+            <input type="number" class="form-control" name="quantity" id="quantity1" placeholder="Quantity" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save Book</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="bootstrap.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+       
+        html, body {
+            background-image: url('library.jpg'); /* Path to your image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #5c2018;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        header {
+            width: 100%;
+            font-size: 68px; 
+            color: #bc4639;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding: 10px 50px;
+            text-align: center;
+        }
+
+        header h1 {
+            border-radius: 15px;
+            background-color: #d4a59a;
+            color: rgb(67, 63, 81);
+            margin: 0;
+            font-size: 3rem; 
+        }
+
+        .login-container {
+            display: flex;
+            flex-direction: row;
+            gap: 40px; 
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+        }
+
+        .login-box {
+            background-color: #e3796e;
+            border-style: ridge;
+            padding: 30px;
+            color: white;
+            width: 100%;
+            max-width: 350px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        h3 {
+            margin: 0;
+            color: #f0dedb;
+            text-align: center;
+            font-size: 1.8rem; 
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            width: 100%;
+            color: #f3e0dc;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        .form-group input {
+            padding: 10px; 
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+            width: 80%;
+        }
+
+        .button-common {
+            background-color:#859cc0 ;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 80%; 
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .button-common:hover {
+            background-color: #3062b3;
+        }
+
+        a {
+            text-decoration: none;
+            width: 100%;
+        }
+    </style>
+    <script>
+        function redirectToHomePage(role) {
+            if (role === 'librarian') {
+                window.location.href = 'librarianhome.html';
+            } else if (role === 'student') {
+                window.location.href = 'navstudent.html';
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent form submission
+            const username = event.target.uname.value; // Get username
+            const password = event.target.pwd.value; // Get password
+
+            // Simple role check (replace with your authentication logic)
+            if (username === 'librarian' && password === 'libpass') {
+                redirectToHomePage('librarian');
+            } else if (username === 'student' && password === 'studpass') {
+                redirectToHomePage('student');
+            } else {
+                alert('Invalid credentials!'); // Show alert for invalid login
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Library Portal</h1>
+    </header>
+
+    <div class="login-container row">
+        <div class="login-box col-md-6">
+            <h3>Librarian Login</h3>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="uname">Username <font color="red"> * </font></label>
+                    <input type="text" class="form-control" name="uname" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <label for="password1">Password<font color="red"> * </font></label>
+                    <input type="password" class="form-control" id="password1" name="pwd" placeholder="Password"/>
+                </div>  
+                <button type="submit" class="button-common">Login</button>
+                <a href="libraryreg.html"><button type="button" class="button-common">Register</button></a>
+            </form>
+        </div>
+
+        <div class="login-box col-md-6">
+            <h3>Student Login</h3>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="uname">Username</label>
+                    <input type="text" class="form-control" name="uname" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <label for="password1">Password</label>
+                    <input type="password" class="form-control" name="pwd" id="password1" placeholder="Password"/>
+                </div>  
+                <button type="submit" class="button-common">Login</button>
+                <a href="studentreg.html"><button type="button" class="button-common">Register</button></a>
+            </form>
+        </div>
+    </div>
+   
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+</body>
+</html>

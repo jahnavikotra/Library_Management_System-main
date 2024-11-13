@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Book Return Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Book Return Details</h1>
+        <button onclick="clearTableData()">Clear Table</button> <!-- Button to clear table -->
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Contact Number</th>
+                    <th>Book Name</th>
+                    <th>Serial Number</th>
+                    <th>Return Date</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Table data will be dynamically populated here -->
+            </tbody>
+        </table>
+        
+        <a href="index.html" class="back-button">Back to Menu</a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

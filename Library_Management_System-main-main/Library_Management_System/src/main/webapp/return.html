@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Library Book Return System</h1>
+        
+        <div class="form-container">
+            <h2>Enter Return Details</h2>
+            <form id="returnForm">
+                <label for="rollNumber">Roll Number:</label>
+                <input type="text" id="rollNumber" required>
+
+                <label for="contactNumber">Contact Number:</label>
+                <input type="text" id="contactNumber" required>
+
+                <label for="bookName">Book Name:</label>
+                <input type="text" id="bookName" required>
+
+                <label for="sNo">Serial Number:</label>
+                <input type="text" id="sNo" required>
+
+                <label for="returnDate">Return Date:</label>
+                <input type="date" id="returnDate" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="display-container">
+            <h2>Returned Books</h2>
+            <table id="detailsTable">
+                <thead>
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Contact Number</th>
+                        <th>Book Name</th>
+                        <th>Serial Number</th>
+                        <th>Return Date</th>
+                    </tr>
+                </thead>
+                <tbody id="detailsBody">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

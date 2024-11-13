@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book Form</title>
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxpYnJhcnl8ZW58MHx8MHx8fDA%3D');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px; /* Space around content */
+        }
+        
+        /* Styling for the form */
+        form {
+            background-color: rgba(0, 0, 0, 0.7); /* Dark overlay behind form */
+            padding: 30px;
+            border-radius: 8px;
+            width: 400px; /* Increased form width */
+            margin: 50px auto; /* Center the form and add top margin */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        h3 {
+            text-align: center;
+            color: #ffcc00;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Add Book Form</h3>
+    <form action="AddBook" method="post">
+        <div class="form-group">
+            <label for="callno1">Book ID</label>
+            <input type="text" class="form-control" name="bookid" id="callno1" placeholder="Book Id" />
+        </div>
+        <div class="form-group">
+            <label for="name1">Book Name</label>
+            <input type="text" class="form-control" name="name" id="name1" placeholder="Book Name" />
+        </div>
+        <div class="form-group">
+            <label for="author1">Author</label>
+            <input type="text" class="form-control" name="author" id="author1" placeholder="Author" />
+        </div>
+        <div class="form-group">
+            <label for="quantity1">Quantity</label>
+            <input type="number" class="form-control" name="quantity" id="quantity1" placeholder="Quantity" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save Book</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Returned Books</title>
+  <link rel="stylesheet" href="return-styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Returned Books</h1>
+    <table id="detailsTable">
+      <thead>
+        <tr>
+          <th>Roll Number</th>
+          <th>Contact Number</th>
+          <th>Book Name</th>
+          <th>Book ID</th> <!-- Changed from Serial Number to Book ID -->
+          <th>Return Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="detailsBody">
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
+
+    <div class="nav-buttons">
+      <a href="librarianhome.html" class="back-button">Go to Home</a>
+      <a href="return-enter.html" class="back-button">Enter Return Details</a>
+    </div>
+  </div>
+
+  <script src="return-script.js"></script>
+</body>
+</html>

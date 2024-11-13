@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librarian Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        #bs-example-navbar-collapse-1 { 
+            background: linear-gradient(to top left, #006663, #111111); 
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .bg {
+            background-image: url("https://images.unsplash.com/photo-1532012197267-da84d127e765?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxpYnJhcnl8ZW58MHx8MHx8fDA%3D");
+            height: 90%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        h2 {
+            color: white;
+            text-shadow: 1px 1px 3px #000;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            color: white; /* White text color for visibility */
+        }
+        th {
+            background-color: rgba(50, 50, 50, 0.8); /* Slightly darker background for header */
+        }
+        tbody tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.1); /* Light row striping */
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .delete-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="librarianhome.html">Librarian Portal</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="librarianhome.html">Home</a></li>
+                <li><a href="addbookform.html">Add Book</a></li>
+                <li><a href="viewbooks.html">View Books</a></li>
+                <li><a href="issuebookform.html">Issue Book</a></li>
+                <li><a href="viewissuedbooks.html">View Issued Book</a></li>
+                <li><a href="returnbookform.html">Return Book</a></li>
+                <li><a href="viewbookfine.html">Fine Section</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="bg">
+    <h2>Available Books</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Quantity</th>
+                <th>Issued</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Sample Data -->
+            <tr>
+                <td>1</td>
+                <td>High Performance Computing</td>
+                <td>Kai Hwang</td>
+                <td>10</td>
+                <td>0</td>
+                <td><button class="delete-btn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Machine Learning</td>
+                <td>Giuseppe Bonaccorso</td>
+                <td>13</td>
+                <td>1</td>
+                <td><button class="delete-btn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Data Science Essentials</td>
+                <td>John Doe</td>
+                <td>8</td>
+                <td>0</td>
+                <td><button class="delete-btn">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxpYnJhcnl8ZW58MHx8MHx8fDA%3D');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: white;
+        }
+
+        h2 {
+            color: #ffcc00;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background-color: #006663;
+            color: white;
+        }
+
+        td {
+            color: white;
+        }
+
+        .status-returned {
+            color: #00ff00;
+        }
+
+        .status-pending {
+            color: #ff9900;
+        }
+
+        .status-overdue {
+            color: #ff0000;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        #studentIdSearch {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+        }
+
+        .search-btn {
+            background-color: #006663;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background-color: #004b4b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>My Issued Books</h2>
+        
+        <div class="search-container">
+            <input type="number" id="studentIdSearch" placeholder="Enter your Student ID">
+            <button onclick="searchBooks()" class="search-btn">Search</button>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Fine (if any)</th>
+                </tr>
+            </thead>
+            <tbody id="myBooksTableBody">
+                <!-- Books will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function calculateFine(dueDate) {
+            const today = new Date();
+            const due = new Date(dueDate);
+            if (today > due) {
+                const diffTime = Math.abs(today - due);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays * 10; // ₹10 per day
+            }
+            return 0;
+        }
+
+        function getStatus(dueDate, returned) {
+            if (returned) {
+                return '<span class="status-returned">Returned</span>';
+            }
+            
+            const today = new Date();
+            const due = new Date(dueDate);
+            
+            if (today > due) {
+                return '<span class="status-overdue">Overdue</span>';
+            }
+            return '<span class="status-pending">Issued</span>';
+        }
+
+        function searchBooks() {
+            const studentId = document.getElementById('studentIdSearch').value;
+            if (!studentId) {
+                 alert('Please enter a Student ID to search.');
+                return;
+            }
+
+            const issuedBooks = JSON.parse(localStorage.getItem('issuedBooks')) || [];
+            const studentBooks = issuedBooks.filter(book => book.studentId === studentId);
+
+            const tableBody = document.getElementById('myBooksTableBody');
+            tableBody.innerHTML = ''; // Clear previous results
+
+            if (studentBooks.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" class="text-center">No books found for this Student ID.</td></tr>';
+                return;
+            }
+
+            studentBooks.forEach(book => {
+                const fine = calculateFine(book.dueDate);
+                const status = getStatus(book.dueDate, book.returned);
+                const row = `
+                    <tr>
+                        <td>${book.bookId}</td>
+                        <td>${book.bookName}</td>
+                        <td>${book.issueDate}</td>
+                        <td>${book.dueDate}</td>
+                        <td>${status}</td>
+                        <td>${fine > 0 ? '₹' + fine : 'No Fine'}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+</html>
